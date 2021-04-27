@@ -3,13 +3,14 @@ import React, { useState } from 'react';
 import ls from 'local-storage';
 import { connect } from 'react-redux';
 
-import { selectMenu } from '../../redux/actions/appActions';
+import { selectMenu, switchTheme } from '../../redux/actions/appActions';
+import { searchNotes } from '../../redux/actions/notesActions';
 import Navbar from './Navbar';
 import Sidebar from './Sidebar';
 
 const Layout = (props) => {
-    const { children, app, selectMenu } = props;
-    const { selected } = app;
+    const { children, app, selectMenu, searchNotes, switchTheme } = props;
+    const { selected, theme } = app;
     const sidebarState = ls.get('sidebar');
     const [sidebar, setSidebar] = useState(
         sidebarState !== null ? sidebarState : true,
@@ -21,7 +22,13 @@ const Layout = (props) => {
 
     return (
         <div className="layout">
-            <Navbar selected={selected} handleSidebar={toggleSidebar} />
+            <Navbar
+                selected={selected}
+                handleSidebar={toggleSidebar}
+                searchNotes={searchNotes}
+                switchTheme={switchTheme}
+                theme={theme}
+            />
             <div className="page">
                 <Sidebar
                     selected={selected}
@@ -43,6 +50,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         selectMenu: (index) => dispatch(selectMenu(index)),
+        searchNotes: (text) => dispatch(searchNotes(text)),
+        switchTheme: () => dispatch(switchTheme()),
     };
 };
 
