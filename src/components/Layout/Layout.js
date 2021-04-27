@@ -11,7 +11,10 @@ import Sidebar from './Sidebar';
 const Layout = (props) => {
     const { children, app, selectMenu, searchNotes, switchTheme } = props;
     const { selected, theme } = app;
-    const sidebarState = ls.get('sidebar');
+    let sidebarState = ls.get('sidebar');
+    if (window.innerWidth <= 800) {
+        sidebarState = false;
+    }
     const [sidebar, setSidebar] = useState(
         sidebarState !== null ? sidebarState : true,
     );

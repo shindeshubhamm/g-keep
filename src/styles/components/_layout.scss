@@ -9,6 +9,7 @@
     .children {
         overflow: auto;
         flex-grow: 1;
+        margin-left: 82px;
     }
 }
 
@@ -171,10 +172,11 @@
         }
     }
     @include scMax(600) {
-        position: absolute;
-        .search-field {
-            width: auto;
-        }
+        display: none;
+        // position: absolute;
+        // .search-field {
+        //     width: auto;
+        // }
     }
 }
 
