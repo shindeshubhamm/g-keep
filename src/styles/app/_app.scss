@@ -1,0 +1,44 @@
+html {
+    margin: 0;
+}
+
+body {
+    margin: 0;
+    font-family: 'Inter';
+}
+
+/* MEDIA QUERIES - Primary layout.
+  ========================================================================== */
+
+// max screen width
+@mixin scMax($screen) {
+    @media (max-width: $screen+'px') {
+        @content;
+    }
+}
+
+// COLOR VARS
+// dark: #202124;
+// white: #ffffff;
+// off: #e8eaed;
+
+// LIGHT INIT
+.lightapp {
+    --bgColor: #ffffff;
+    --fontColor: #202124;
+}
+
+// DARK INIT
+.darkapp {
+    --bgColor: #202124;
+    --fontColor: #e8eaed;
+}
+
+$bgColor: var(--bgColor);
+$fontColor: var(--fontColor);
+
+.app {
+    min-height: 100vh;
+    background-color: var(--bgColor);
+    color: var(--fontColor);
+}
