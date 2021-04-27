@@ -52,8 +52,10 @@
 
 // Sidebar
 .sidebar {
-    width: 300px;
+    width: 280px;
+    height: 100vh;
     transition: width 0.2s ease;
+    background-color: var(--main);
     .menuItems {
         margin-top: 20px;
         .m-item {
@@ -88,6 +90,7 @@
 }
 
 .sidebar-close {
+    position: fixed;
     width: 72px;
     transition: width 0.2s ease;
     .menuItems {
@@ -101,6 +104,11 @@
             }
         }
     }
+}
+
+.sidebar-fixed {
+    position: fixed;
+    box-shadow: -2px 12px 10px 0px var(--shadow);
 }
 
 // Searchbar
@@ -154,6 +162,18 @@
         }
         &:hover {
             background-color: #ddd;
+        }
+    }
+    @include scMax(960) {
+        margin: 0 10px;
+        .search-field {
+            width: auto;
+        }
+    }
+    @include scMax(600) {
+        position: absolute;
+        .search-field {
+            width: auto;
         }
     }
 }

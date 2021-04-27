@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { AiOutlineBulb } from 'react-icons/ai';
 import { RiInboxArchiveLine } from 'react-icons/ri';
@@ -19,9 +19,29 @@ const menuData = [
 
 const Sidebar = (props) => {
     const { open, selected, selectMenu } = props;
+    const [localState, setLocalState] = useState(open);
+
+    useEffect(() => {
+        setLocalState(open);
+    }, [open]);
+
+    const handleMouseEnter = () => {
+        setLocalState(true);
+    };
+    const handleMouseLeave = () => {
+        if (!open) {
+            setLocalState(false);
+        }
+    };
 
     return (
-        <div className={`sidebar ${!open ? 'sidebar-close' : ''}`}>
+        <div
+            className={`sidebar ${!localState ? 'sidebar-close' : ''} ${
+                localState && !open ? 'sidebar-fixed' : ''
+            } `}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+        >
             <div className="menuItems">
                 {menuData.map((data, i) => (
                     <Link
