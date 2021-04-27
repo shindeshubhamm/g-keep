@@ -1,7 +1,9 @@
 import { APP_SELECT_MENU } from '../types';
 
+const arPath = window.location.pathname === '/archive';
+
 const initialState = {
-    selected: 0, // 0 == NOTES, 1 == ARCHIVED
+    selected: arPath ? 1 : 0, // 0 == NOTES, 1 == ARCHIVED
 };
 
 const layoutReducer = (state = initialState, action) => {

@@ -7,6 +7,21 @@ body {
     font-family: 'Inter';
 }
 
+// Scrollbar
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+    background: #aaa;
+    border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #999;
+}
+
 /* MEDIA QUERIES - Primary layout.
   ========================================================================== */
 
@@ -24,21 +39,39 @@ body {
 
 // LIGHT INIT
 .lightapp {
-    --bgColor: #ffffff;
-    --fontColor: #202124;
+    --main: #ffffff;
+    --font: #202124;
+    --gray: #5f636844;
+    --gray2: #f0f0f0;
+    --yellow: #feefc3;
 }
 
 // DARK INIT
 .darkapp {
-    --bgColor: #202124;
-    --fontColor: #e8eaed;
+    --main: #202124;
+    --font: #e8eaed;
+    --gray: #9aa0a688;
+    --gray2: #333333;
+    --yellow: #41331c;
 }
-
-$bgColor: var(--bgColor);
-$fontColor: var(--fontColor);
 
 .app {
     min-height: 100vh;
-    background-color: var(--bgColor);
-    color: var(--fontColor);
+    background-color: var(--main);
+    color: var(--font);
+    overflow: hidden;
+}
+
+// Content Button
+.cb {
+    width: 50px;
+    height: 50px;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    border-radius: 50%;
+    cursor: pointer;
+    &:hover {
+        background-color: #cccccc55;
+    }
 }

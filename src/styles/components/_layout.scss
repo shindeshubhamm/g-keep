@@ -1,0 +1,99 @@
+.layout {
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+    .page {
+        display: flex;
+        height: 100vh;
+    }
+    .children {
+        overflow: auto;
+        flex-grow: 1;
+    }
+}
+
+// Navbar
+.navbar {
+    padding: 8px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--gray);
+    .ham {
+        width: 48px;
+        height: 48px;
+        margin-right: 12px;
+        .ham-icon {
+            font-size: 20px;
+            color: var(--font);
+        }
+    }
+    .title {
+        display: flex;
+        align-items: center;
+        img {
+            width: 40px;
+            height: 40px;
+            padding-right: 4px;
+        }
+        .text {
+            margin: 0;
+            font-weight: 500;
+            font-size: 20px;
+            color: var(--font);
+        }
+    }
+}
+
+// Sidebar
+.sidebar {
+    width: 300px;
+    transition: width 0.2s ease;
+    .menuItems {
+        margin-top: 20px;
+        .m-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            width: 80%;
+            border-top-right-radius: 100px;
+            border-bottom-right-radius: 100px;
+            .icon-wrapper {
+                width: 24px;
+                height: 24px;
+                .icon {
+                    font-size: 24px;
+                    color: var(--font);
+                }
+            }
+            .text {
+                margin: 0 20px;
+                font-weight: 500;
+                font-size: 14px;
+                color: var(--font);
+            }
+            &:hover {
+                background-color: var(--gray2);
+            }
+        }
+        .m-selected {
+            background-color: var(--yellow) !important;
+        }
+    }
+}
+
+.sidebar-close {
+    width: 72px;
+    transition: width 0.2s ease;
+    .menuItems {
+        .m-item {
+            margin: 0 8px;
+            border-radius: 50%;
+            padding: 12px;
+            width: 24px;
+            .text {
+                display: none;
+            }
+        }
+    }
+}
