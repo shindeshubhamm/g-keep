@@ -1,11 +1,25 @@
 import React from 'react';
 
-const Notes = () => {
+import { connect } from 'react-redux';
+
+import NotesView from '../NotesView/NotesView';
+
+const Notes = (props) => {
+    const {
+        ns: { notes, pinned },
+    } = props;
+
     return (
         <div>
-            <p>Notes Page</p>
+            <NotesView notes={notes} />
         </div>
     );
 };
 
-export default Notes;
+const mapStateToProps = (state) => {
+    return {
+        ns: state.notes,
+    };
+};
+
+export default connect(mapStateToProps)(Notes);

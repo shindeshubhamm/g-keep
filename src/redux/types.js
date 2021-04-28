@@ -5,7 +5,9 @@ export const APP_THEME = 'APP_THEME';
 
 /* NOTES
 ========================================================================== */
-export const NOTES_SEARCH = 'NOTES_SEARCH';
-export const NOTES_ADD = 'NOTES_ADD';
-export const NOTES_PIN = 'NOTES_PIN';
-export const NOTES_ARCHIVE = 'NOTES_ARCHIVE';
+export const SEARCH_NOTES = 'SEARCH_NOTES';
+export const ADD_NOTE = 'ADD_NOTE';
+export const LOAD_NOTES = 'LOAD_NOTES';
+
+// export const PIN_NOTE = 'PIN_NOTE';
+// export const ARCHIVE_NOTE = 'ARCHIVE_NOTE';

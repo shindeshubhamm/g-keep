@@ -1,4 +1,4 @@
-import { NOTES_ADD, NOTES_ARCHIVE, NOTES_PIN, NOTES_SEARCH } from '../types';
+import { ADD_NOTE, LOAD_NOTES, SEARCH_NOTES } from '../types';
 
 const initialState = {
     notes: [],
@@ -10,10 +10,10 @@ const layoutReducer = (state = initialState, action) => {
     const { type, payload } = action;
 
     switch (type) {
-        case NOTES_SEARCH:
+        case LOAD_NOTES:
             return {
                 ...state,
-                notes: [],
+                ...payload,
             };
         default:
             return {
