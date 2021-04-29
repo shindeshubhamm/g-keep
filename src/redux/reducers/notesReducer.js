@@ -65,17 +65,24 @@ const layoutReducer = (state = initialState, action) => {
         case ARCHIVE_NOTE:
             return {
                 ...state,
-                archive: [...state.archive, ls.get(payload.id)],
+                archive: [
+                    ...state.archive,
+                    { ...ls.get(payload.id), id: payload.id },
+                ],
                 [payload.type]: state[payload.type].filter(
                     (note) => note.id !== payload.id,
                 ),
             };
 
-        // case UNARCHIVE_NOTE:
-        //     return {
-        //         ...state,
-        //         archive: state.archive.f
-        //     };
+        case UNARCHIVE_NOTE:
+            return {
+                ...state,
+                archive: state.archive.filter((n) => n.id !== payload.id),
+                notes: [
+                    ...state.notes,
+                    { ...ls.get(payload.id), id: payload.id },
+                ],
+            };
 
         default:
             return { ...state };

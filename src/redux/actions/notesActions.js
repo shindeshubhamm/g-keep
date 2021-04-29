@@ -10,6 +10,7 @@ import {
     DELETE_NOTE,
     LOAD_NOTES,
     SEARCH_NOTES,
+    UNARCHIVE_NOTE,
 } from '../types';
 
 export const searchNotes = (data) => {
@@ -95,5 +96,20 @@ export const archiveNote = (id, type) => {
     return {
         type: ARCHIVE_NOTE,
         payload: { id, type },
+    };
+};
+
+export const unarchiveNote = (id) => {
+    const ids = ls.get('archive');
+    const newIds = ids.filter((i) => i !== id);
+    ls.set('archive', newIds);
+
+    const notIds = ls.get('notes');
+    const newNotIds = notIds && _.isArray(notIds) ? [...notIds, id] : [id];
+    ls.set('notes', newNotIds);
+
+    return {
+        type: UNARCHIVE_NOTE,
+        payload: { id },
     };
 };

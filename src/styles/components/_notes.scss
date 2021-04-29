@@ -152,6 +152,7 @@
             margin: 0 0 10px;
             font-size: 16px;
             font-weight: 600;
+            word-break: break-all;
         }
         .pin-btn {
             margin-left: 10px;
@@ -165,6 +166,7 @@
         }
     }
     .desc {
+        word-break: break-all;
         margin: 0;
         font-size: 18px;
         font-weight: 400;
@@ -212,4 +214,9 @@
             font-size: 16px;
         }
     }
+}
+
+// ARCHIVE NOTES
+.archive-notes {
+    margin-top: 42px;
 }

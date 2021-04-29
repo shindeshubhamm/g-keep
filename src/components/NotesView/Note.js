@@ -13,7 +13,7 @@ const Note = (props) => {
         archive,
         deleteNote,
         archiveNote,
-        unArchiveNote,
+        unarchiveNote,
         pinNote,
         unPinNote,
     } = props;
@@ -25,7 +25,7 @@ const Note = (props) => {
 
     const handleArcUnarc = () => {
         if (archive) {
-            unArchiveNote(id);
+            unarchiveNote(id);
             return;
         }
         archiveNote(id, type);

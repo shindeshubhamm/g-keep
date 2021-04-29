@@ -1,11 +1,29 @@
 import React from 'react';
 
-const Archive = () => {
+import { connect } from 'react-redux';
+
+import NotesView from '../NotesView/NotesView';
+
+const Archive = (props) => {
+    const {
+        ns: { archive },
+    } = props;
+
     return (
-        <div>
-            <p>Archive</p>
+        <div className="archive-notes">
+            {archive.length !== 0 ? (
+                <NotesView cards={archive} archive />
+            ) : (
+                <p style={{ textAlign: 'center' }}>Archive appear here!</p>
+            )}
         </div>
     );
 };
 
-export default Archive;
+const mapStateToProps = (state) => {
+    return {
+        ns: state.notes,
+    };
+};
+
+export default connect(mapStateToProps)(Archive);
