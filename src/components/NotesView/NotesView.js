@@ -6,7 +6,9 @@ import { connect } from 'react-redux';
 import {
     archiveNote,
     deleteNote,
+    pinNote,
     unarchiveNote,
+    unpinNote,
 } from '../../redux/actions/notesActions';
 import Note from './Note';
 
@@ -18,6 +20,8 @@ const NotesView = (props) => {
         pinned,
         archive,
         unarchiveNote,
+        pinNote,
+        unpinNote,
     } = props;
 
     return (
@@ -33,6 +37,8 @@ const NotesView = (props) => {
                         deleteNote={deleteNote}
                         archiveNote={archiveNote}
                         unarchiveNote={unarchiveNote}
+                        pinNote={pinNote}
+                        unpinNote={unpinNote}
                     />
                 ))}
         </div>
@@ -48,6 +54,8 @@ const mapDispatchToProps = (dispatch) => {
         deleteNote: (id, type) => dispatch(deleteNote(id, type)),
         archiveNote: (id, type) => dispatch(archiveNote(id, type)),
         unarchiveNote: (id) => dispatch(unarchiveNote(id)),
+        pinNote: (id, type) => dispatch(pinNote(id, type)),
+        unpinNote: (id) => dispatch(unpinNote(id)),
     };
 };
 

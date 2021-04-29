@@ -9,8 +9,10 @@ import {
     BLANK_NOTE,
     DELETE_NOTE,
     LOAD_NOTES,
+    PIN_NOTE,
     SEARCH_NOTES,
     UNARCHIVE_NOTE,
+    UNPIN_NOTE,
 } from '../types';
 
 export const searchNotes = (data) => {
@@ -110,6 +112,37 @@ export const unarchiveNote = (id) => {
 
     return {
         type: UNARCHIVE_NOTE,
+        payload: { id },
+    };
+};
+
+// PIN NOTE
+export const pinNote = (id, type) => {
+    const ids = ls.get(type);
+    const newIds = ids.filter((i) => i !== id);
+    const pinIds = ls.get('pinned');
+    ls.set(type, newIds);
+
+    const newPinIds = pinIds && _.isArray(pinIds) ? [...pinIds, id] : [id];
+    ls.set('pinned', newPinIds);
+
+    return {
+        type: PIN_NOTE,
+        payload: { id, type },
+    };
+};
+
+export const unpinNote = (id, type) => {
+    const ids = ls.get('pinned');
+    const newIds = ids.filter((i) => i !== id);
+    ls.set('pinned', newIds);
+
+    const notIds = ls.get('notes');
+    const newNotIds = notIds && _.isArray(notIds) ? [...notIds, id] : [id];
+    ls.set('notes', newNotIds);
+
+    return {
+        type: UNPIN_NOTE,
         payload: { id },
     };
 };

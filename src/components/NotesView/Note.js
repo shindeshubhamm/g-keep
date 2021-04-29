@@ -15,7 +15,7 @@ const Note = (props) => {
         archiveNote,
         unarchiveNote,
         pinNote,
-        unPinNote,
+        unpinNote,
     } = props;
     const type = pinned ? 'pinned' : archive ? 'archive' : 'notes';
 
@@ -33,10 +33,10 @@ const Note = (props) => {
 
     const handlePinUnpin = () => {
         if (pinned) {
-            unPinNote(id);
+            unpinNote(id);
             return;
         }
-        pinNote(id);
+        pinNote(id, type);
     };
 
     return (

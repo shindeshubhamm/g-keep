@@ -8,8 +8,10 @@ import {
     BLANK_NOTE,
     DELETE_NOTE,
     LOAD_NOTES,
+    PIN_NOTE,
     SEARCH_NOTES,
     UNARCHIVE_NOTE,
+    UNPIN_NOTE,
 } from '../types';
 
 const initialState = {
@@ -78,6 +80,28 @@ const layoutReducer = (state = initialState, action) => {
             return {
                 ...state,
                 archive: state.archive.filter((n) => n.id !== payload.id),
+                notes: [
+                    ...state.notes,
+                    { ...ls.get(payload.id), id: payload.id },
+                ],
+            };
+
+        case PIN_NOTE:
+            return {
+                ...state,
+                pinned: [
+                    ...state.pinned,
+                    { ...ls.get(payload.id), id: payload.id },
+                ],
+                [payload.type]: state[payload.type].filter(
+                    (note) => note.id !== payload.id,
+                ),
+            };
+
+        case UNPIN_NOTE:
+            return {
+                ...state,
+                pinned: state.pinned.filter((n) => n.id !== payload.id),
                 notes: [
                     ...state.notes,
                     { ...ls.get(payload.id), id: payload.id },
