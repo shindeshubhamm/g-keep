@@ -85,7 +85,7 @@ export const deleteNote = (id, type) => {
 // ARCHIVE NOTE
 export const archiveNote = (id, type) => {
     const ids = ls.get(type);
-    const newIds = ids.filter((id) => ids !== id);
+    const newIds = ids.filter((i) => i !== id);
     const arcIds = ls.get('archive');
     ls.set(type, newIds);
 

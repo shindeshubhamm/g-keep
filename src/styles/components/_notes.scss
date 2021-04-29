@@ -1,5 +1,11 @@
 .notes {
     margin: 50px 20px;
+    .sub-title {
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--font);
+        margin: 40px 0 10px 28px;
+    }
 
     @include scMax(960) {
         margin: 30px 50px;
@@ -115,20 +121,15 @@
 
 // NOTES VIEW
 .notes-view-wrapper {
-    .sub-title {
-        font-size: 12px;
-        font-weight: 500;
-        color: var(--font);
-        margin: 40px 0 10px 28px;
-    }
-    .notes-view {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: flex-start;
-        // display: grid;
-        // grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        // grid-row: 10px;
-    }
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    // .notes-view {
+
+    // display: grid;
+    // grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    // grid-row: 10px;
+    // }
 }
 
 // NOTES CARD

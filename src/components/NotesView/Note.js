@@ -28,7 +28,7 @@ const Note = (props) => {
             unArchiveNote(id);
             return;
         }
-        archiveNote(id);
+        archiveNote(id, type);
     };
 
     const handlePinUnpin = () => {

@@ -47,7 +47,7 @@ const AddNote = (props) => {
             return;
         }
         if (fullRef.current) {
-            handleSubmit(dataRef.current, pinRef.current);
+            handleSubmit(dataRef.current);
         }
     };
 
