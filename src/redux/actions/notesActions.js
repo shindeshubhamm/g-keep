@@ -14,6 +14,7 @@ import {
     UNARCHIVE_NOTE,
     UNPIN_NOTE,
 } from '../types';
+import { setAlert } from './appActions';
 
 export const searchNotes = (data) => {
     return {
@@ -73,20 +74,21 @@ export const addNote = (note, pin, archive) => (dispatch) => {
 };
 
 // DELETE NOTE
-export const deleteNote = (id, type) => {
+export const deleteNote = (id, type) => (dispatch) => {
     ls.remove(id);
     const ids = ls.get(type);
     const newIds = ids.filter((i) => i !== id);
     ls.set(type, newIds);
 
-    return {
+    dispatch({
         type: DELETE_NOTE,
         payload: { id, type },
-    };
+    });
+    dispatch(setAlert('Note Deleted'));
 };
 
 // ARCHIVE NOTE
-export const archiveNote = (id, type) => {
+export const archiveNote = (id, type) => (dispatch) => {
     const ids = ls.get(type);
     const newIds = ids.filter((i) => i !== id);
     const arcIds = ls.get('archive');
@@ -95,13 +97,14 @@ export const archiveNote = (id, type) => {
     const newArcIds = arcIds && _.isArray(arcIds) ? [...arcIds, id] : [id];
     ls.set('archive', newArcIds);
 
-    return {
+    dispatch({
         type: ARCHIVE_NOTE,
         payload: { id, type },
-    };
+    });
+    dispatch(setAlert('Note Archived'));
 };
 
-export const unarchiveNote = (id) => {
+export const unarchiveNote = (id) => (dispatch) => {
     const ids = ls.get('archive');
     const newIds = ids.filter((i) => i !== id);
     ls.set('archive', newIds);
@@ -110,10 +113,11 @@ export const unarchiveNote = (id) => {
     const newNotIds = notIds && _.isArray(notIds) ? [...notIds, id] : [id];
     ls.set('notes', newNotIds);
 
-    return {
+    dispatch({
         type: UNARCHIVE_NOTE,
         payload: { id },
-    };
+    });
+    dispatch(setAlert('Note Unarchived'));
 };
 
 // PIN NOTE

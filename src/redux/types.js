@@ -2,6 +2,8 @@
 ========================================================================== */
 export const APP_SELECT_MENU = 'APP_SELECT_MENU';
 export const APP_THEME = 'APP_THEME';
+export const SET_ALERT = 'SET_ALERT';
+export const UNSET_ALERT = 'UNSET_ALERT';
 
 /* NOTES
 ========================================================================== */

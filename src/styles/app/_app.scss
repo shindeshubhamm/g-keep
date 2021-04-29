@@ -45,6 +45,7 @@ body {
     --gray2: #f0f0f0;
     --yellow: #feefc3;
     --shadow: #6d6d6d;
+    --alert: #313235;
 }
 
 // DARK INIT
@@ -55,6 +56,7 @@ body {
     --gray2: #333333;
     --yellow: #41331c;
     --shadow: #000000;
+    --alert: #616368;
 }
 
 .app {
@@ -88,4 +90,19 @@ body {
     * {
         pointer-events: none;
     }
+}
+
+// ALERT
+.alert {
+    position: fixed;
+    padding: 16px 36px;
+    max-width: 300px;
+    user-select: none;
+    top: 20px;
+    left: 50%;
+    transform: translate(-50%);
+    background-color: var(--alert);
+    box-shadow: 1px ​1px 2px 1px black;
+    border-radius: 3px;
+    color: #ffffff;
 }
