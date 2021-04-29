@@ -16,6 +16,7 @@ const Note = (props) => {
         unarchiveNote,
         pinNote,
         unpinNote,
+        onNoteClick,
     } = props;
     const type = pinned ? 'pinned' : archive ? 'archive' : 'notes';
 
@@ -39,13 +40,26 @@ const Note = (props) => {
         pinNote(id, type);
     };
 
+    const handleCardClick = (e) => {
+        if (e.target.tagName === 'BUTTON') return;
+        onNoteClick({ id, title, desc });
+    };
+
     return (
-        <div className="note-card">
+        // eslint-disable-next-line
+        <div
+            className="note-card"
+            onClick={onNoteClick ? handleCardClick : undefined}
+        >
             <div className="top">
-                <h2 className="title">{title}</h2>
+                {title ? (
+                    <h2 className="title">{title}</h2>
+                ) : (
+                    <p className="desc">{desc}</p>
+                )}
                 <button
                     type="button"
-                    className={`cb pin-btn ${!pinned ? 'ho-vi' : ''}`}
+                    className={`noptr cb pin-btn ${!pinned ? 'ho-vi' : ''}`}
                     title={`${pinned ? 'Unpin Note' : 'Pin Note'}`}
                     onClick={handlePinUnpin}
                 >
@@ -56,11 +70,11 @@ const Note = (props) => {
                     )}
                 </button>
             </div>
-            <p className="desc">{desc}</p>
+            {title && <p className="desc">{desc}</p>}
             <div className="bottom">
                 <button
                     type="button"
-                    className="cb arc-btn ho-vi"
+                    className="noptr cb arc-btn ho-vi"
                     onClick={handleArcUnarc}
                     title={`${archive ? 'Unarchive Note' : 'Archive Note'}`}
                 >
@@ -72,7 +86,7 @@ const Note = (props) => {
                 </button>
                 <button
                     type="button"
-                    className="cb arc-btn ho-vi"
+                    className="noptr cb arc-btn ho-vi"
                     onClick={handleDelete}
                     title="Delete Note"
                 >

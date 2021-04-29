@@ -220,3 +220,44 @@
 .archive-notes {
     margin-top: 42px;
 }
+
+// MODAL DETAILS
+.view-details {
+    border: 1px solid gray;
+    padding: 24px 24px 42px;
+    border-radius: 10px;
+    background-color: #fff;
+    max-width: 500px;
+    position: relative;
+    .vd-title {
+        color: var(--font);
+        margin: 0 0 4px;
+        font-size: 18px;
+        word-break: break-all;
+    }
+    .vd-desc {
+        color: var(--font);
+        margin: 0 0 2px;
+        font-size: 24px;
+        word-break: break-all;
+    }
+    .close-btn {
+        position: absolute;
+        padding: 6px 12px;
+        cursor: pointer;
+        border: 1px solid gray;
+        color: black;
+        background-color: transparent;
+        outline: none;
+        border: none;
+        font-family: 'Inter';
+        font-size: 14px;
+        font-weight: 600;
+        border-radius: 5px;
+        right: 12px;
+        bottom: 12px;
+        &:hover {
+            background-color: lightgray;
+        }
+    }
+}

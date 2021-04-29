@@ -16,5 +16,3 @@ export const PIN_NOTE = 'PIN_NOTE';
 export const UNPIN_NOTE = 'UNPIN_NOTE';
 export const DELETE_NOTE = 'DELETE_NOTE';
 export const SEARCH_NOTES = 'SEARCH_NOTES';
-
-// export const PIN_NOTE = 'PIN_NOTE';

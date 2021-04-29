@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 
-import ls from 'local-storage';
 import { connect } from 'react-redux';
 
 import AppRouter from './AppRouter';

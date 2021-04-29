@@ -83,3 +83,9 @@ body {
     cursor: pointer;
     font-family: 'Inter';
 }
+
+.noptr {
+    * {
+        pointer-events: none;
+    }
+}
