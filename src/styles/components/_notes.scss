@@ -1,0 +1,214 @@
+.notes {
+    margin: 50px 20px;
+
+    @include scMax(960) {
+        margin: 30px 50px;
+    }
+    @include scMax(600) {
+        margin: 24px 20px;
+    }
+}
+
+.add-note {
+    position: relative;
+    width: 500px;
+    margin: 40px auto;
+    border-radius: 6px;
+    overflow: hidden;
+    background-color: var(--main);
+    box-shadow: 0 1px 4px 0px var(--shadow);
+    .ip {
+        width: calc(100% - 32px);
+        border: none;
+        outline: none;
+        background-color: var(--main);
+        margin: 0;
+        font-family: 'Inter';
+        color: var(--font);
+        padding: 0 16px;
+    }
+    .title {
+        height: 42px;
+        font-weight: 600;
+        font-size: 15px;
+    }
+    .des {
+        font-weight: 600;
+        font-size: 15px;
+        min-height: 42px;
+        max-height: 100px;
+    }
+    .full {
+        font-weight: 500;
+        font-size: 14px;
+    }
+    .pin-button {
+        display: none;
+        cursor: pointer;
+        position: absolute;
+        right: 12px;
+        top: 4px;
+        background-color: transparent;
+        border-radius: 50%;
+        border: none;
+        width: 36px;
+        height: 36px;
+        .pin {
+            font-size: 20px;
+            color: var(--font);
+            transform: rotate(315deg);
+        }
+        &:hover {
+            background-color: #dddddd33;
+        }
+    }
+
+    .an-panel {
+        padding: 0 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 42px;
+    }
+
+    .an-btn {
+        cursor: pointer;
+        background-color: transparent;
+        border: none;
+        color: var(--font);
+        &:hover {
+            background-color: #dddddd33;
+        }
+    }
+    .arc-btn {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        .arc-icon {
+            font-size: 16px;
+        }
+    }
+    .cls-btn {
+        display: none;
+        padding: 8px 12px;
+        border-radius: 4px;
+        font-family: 'Inter';
+        font-weight: 600;
+    }
+
+    &:hover {
+        .pin-button {
+            display: block;
+        }
+        .cls-btn {
+            display: block;
+        }
+    }
+
+    @include scMax(960) {
+        width: 90%;
+    }
+    @include scMax(600) {
+        width: 100%;
+    }
+}
+
+// NOTES VIEW
+.notes-view-wrapper {
+    .sub-title {
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--font);
+        margin: 40px 0 10px 28px;
+    }
+    .notes-view {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        // display: grid;
+        // grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        // grid-row: 10px;
+    }
+}
+
+// NOTES CARD
+.note-card {
+    padding: 16px 18px 5px;
+    border: 1px solid var(--gray);
+    border-radius: 8px;
+    margin: 8px;
+    height: auto;
+    max-width: 250px;
+    transition: box-shadow 0.2s ease;
+    .ho-vi {
+        visibility: hidden;
+    }
+    .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        .title {
+            margin: 0 0 10px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        .pin-btn {
+            margin-left: 10px;
+            width: 36px;
+            height: 36px;
+            .pin {
+                transform: rotate(-45deg);
+                font-size: 20px;
+                color: var(--font);
+            }
+        }
+    }
+    .desc {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 400;
+    }
+    .bottom {
+        margin-top: 8px;
+        .arc-btn {
+            width: 32px;
+            height: 32px;
+            .arc-icon {
+                font-size: 16px;
+                color: var(--font);
+            }
+        }
+    }
+
+    &:hover {
+        box-shadow: 1px 1px 5px 0px var(--shadow);
+        transition: box-shadow 0.2s ease;
+        .ho-vi {
+            visibility: visible;
+        }
+    }
+
+    @include scMax(960) {
+        padding: 10px 12px 5px;
+        margin: 6px;
+        .ho-vi {
+            visibility: visible;
+        }
+        &:hover {
+            box-shadow: none;
+            transition: none;
+        }
+    }
+
+    @include scMax(600) {
+        max-width: 100%;
+        .top {
+            .title {
+                font-size: 14px;
+            }
+        }
+        .desc {
+            font-size: 16px;
+        }
+    }
+}

@@ -15,14 +15,6 @@ const App = (props) => {
         loadNotes();
     }, []);
 
-    // ls.set(Date.now(), { title: 'My Note', desc: 'My note description!' });
-    ls.set('notes', [
-        1619597186620,
-        1619597186557,
-        1619597209743,
-        1619597209827,
-    ]);
-
     return (
         <div className={`app ${app.theme === 'dark' ? 'darkapp' : 'lightapp'}`}>
             <Layout>

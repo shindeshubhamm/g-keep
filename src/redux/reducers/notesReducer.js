@@ -1,10 +1,21 @@
-import { ADD_NOTE, LOAD_NOTES, SEARCH_NOTES } from '../types';
+import {
+    ADD_ARCHIVE_NOTE,
+    ADD_NOTE,
+    ADD_PINNED_NOTE,
+    ARCHIVE_NOTE,
+    BLANK_NOTE,
+    DELETE_NOTE,
+    LOAD_NOTES,
+    SEARCH_NOTES,
+} from '../types';
 
 const initialState = {
     notes: [],
-    archived: [],
+    archive: [],
     pinned: [],
 };
+
+let temp;
 
 const layoutReducer = (state = initialState, action) => {
     const { type, payload } = action;
@@ -15,10 +26,41 @@ const layoutReducer = (state = initialState, action) => {
                 ...state,
                 ...payload,
             };
-        default:
+
+        case ADD_NOTE:
             return {
                 ...state,
+                notes: [...state.notes, payload],
             };
+
+        case ADD_ARCHIVE_NOTE:
+            return {
+                ...state,
+                archive: [...state.archive, payload],
+            };
+
+        case ADD_PINNED_NOTE:
+            return {
+                ...state,
+                pinned: [...state.pinned, payload],
+            };
+
+        case BLANK_NOTE:
+            return { ...state };
+
+        case DELETE_NOTE:
+            if (['notes', 'archive', 'pinned'].includes(payload.type)) {
+                return {
+                    ...state,
+                    [payload.type]: state[payload.type].filter(
+                        (note) => note.id !== payload.id,
+                    ),
+                };
+            }
+            return { ...state };
+
+        default:
+            return { ...state };
     }
 };
 

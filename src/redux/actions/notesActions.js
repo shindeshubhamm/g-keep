@@ -1,7 +1,16 @@
 import ls from 'local-storage';
 import _ from 'lodash';
 
-import { ADD_NOTE, LOAD_NOTES, SEARCH_NOTES } from '../types';
+import {
+    ADD_ARCHIVE_NOTE,
+    ADD_NOTE,
+    ADD_PINNED_NOTE,
+    ARCHIVE_NOTE,
+    BLANK_NOTE,
+    DELETE_NOTE,
+    LOAD_NOTES,
+    SEARCH_NOTES,
+} from '../types';
 
 export const searchNotes = (data) => {
     return {
@@ -24,27 +33,51 @@ const fetchNotes = (ids) => {
     return notes;
 };
 
-export const loadNotes = () => (dispatch) => {
+export const loadNotes = () => {
     const notes = fetchNotes(ls.get('notes'));
-    const archived = fetchNotes(ls.get('archive'));
+    const archive = fetchNotes(ls.get('archive'));
     const pinned = fetchNotes(ls.get('pinned'));
 
-    dispatch({
+    return {
         type: LOAD_NOTES,
-        payload: { notes, archived, pinned },
-    });
+        payload: { notes, archive, pinned },
+    };
 };
 
-export const addNote = (data) => {
-    const note = {
-        ...data,
-        id: Date.now(),
-    };
-    const notes = ls.get('notes');
-    const newNotes = notes ? [...notes, note] : [note];
+const modifyNotesDB = (id, type) => {
+    const ids = ls.get(type);
+    const newIds = ids && _.isArray(ids) ? [...ids, id] : [id];
+    ls.set(type, newIds);
+};
+
+export const addNote = (note, pin, archive) => (dispatch) => {
+    if (!note.title && !note.desc) {
+        dispatch({ type: BLANK_NOTE });
+        return;
+    }
+    const id = Date.now();
+    ls.set(id, note);
+    if (archive) {
+        modifyNotesDB(id, 'archive');
+        dispatch({ type: ADD_ARCHIVE_NOTE, payload: { id, ...note } });
+    } else if (pin) {
+        modifyNotesDB(id, 'pinned');
+        dispatch({ type: ADD_PINNED_NOTE, payload: { id, ...note } });
+    } else {
+        modifyNotesDB(id, 'notes');
+        dispatch({ type: ADD_NOTE, payload: { id, ...note } });
+    }
+};
+
+// DELETE NOTE
+export const deleteNote = (id, type) => {
+    ls.remove(id);
+    const ids = ls.get(type ?? 'notes');
+    const newIds = ids.filter((i) => i !== id);
+    ls.set(type ?? 'notes', newIds);
 
     return {
-        type: ADD_NOTE,
-        payload: newNotes,
+        type: DELETE_NOTE,
+        payload: { id, type: type ?? 'notes' },
     };
 };

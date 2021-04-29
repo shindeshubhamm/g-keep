@@ -57,6 +57,7 @@
     height: 100vh;
     transition: width 0.2s ease;
     background-color: var(--main);
+    z-index: 100;
     .menuItems {
         margin-top: 20px;
         .m-item {
