@@ -1,3 +1,5 @@
+import ls from 'local-storage';
+
 import {
     ADD_ARCHIVE_NOTE,
     ADD_NOTE,
@@ -7,6 +9,7 @@ import {
     DELETE_NOTE,
     LOAD_NOTES,
     SEARCH_NOTES,
+    UNARCHIVE_NOTE,
 } from '../types';
 
 const initialState = {
@@ -58,6 +61,21 @@ const layoutReducer = (state = initialState, action) => {
                 };
             }
             return { ...state };
+
+        case ARCHIVE_NOTE:
+            return {
+                ...state,
+                archive: [...state.archive, ls.get(payload.id)],
+                [payload.type]: state[payload.type].filter(
+                    (note) => note.id !== payload.id,
+                ),
+            };
+
+        // case UNARCHIVE_NOTE:
+        //     return {
+        //         ...state,
+        //         archive: state.archive.f
+        //     };
 
         default:
             return { ...state };

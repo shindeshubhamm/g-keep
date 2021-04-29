@@ -2,18 +2,41 @@ import React from 'react';
 
 import { AiFillPushpin, AiOutlinePushpin } from 'react-icons/ai';
 import { IoMdTrash } from 'react-icons/io';
-import { RiInboxArchiveLine } from 'react-icons/ri';
+import { RiInboxArchiveLine, RiInboxUnarchiveLine } from 'react-icons/ri';
 
 const Note = (props) => {
-    const { id, title, desc, pinned, archive, deleteNote, archiveNote } = props;
+    const {
+        id,
+        title,
+        desc,
+        pinned,
+        archive,
+        deleteNote,
+        archiveNote,
+        unArchiveNote,
+        pinNote,
+        unPinNote,
+    } = props;
     const type = pinned ? 'pinned' : archive ? 'archive' : 'notes';
 
     const handleDelete = () => {
         deleteNote(id, type);
     };
 
-    const handleArchive = () => {
+    const handleArcUnarc = () => {
+        if (archive) {
+            unArchiveNote(id);
+            return;
+        }
         archiveNote(id);
+    };
+
+    const handlePinUnpin = () => {
+        if (pinned) {
+            unPinNote(id);
+            return;
+        }
+        pinNote(id);
     };
 
     return (
@@ -23,6 +46,8 @@ const Note = (props) => {
                 <button
                     type="button"
                     className={`cb pin-btn ${!pinned ? 'ho-vi' : ''}`}
+                    title={`${pinned ? 'Unpin Note' : 'Pin Note'}`}
+                    onClick={handlePinUnpin}
                 >
                     {pinned ? (
                         <AiFillPushpin className="pin" />
@@ -36,14 +61,20 @@ const Note = (props) => {
                 <button
                     type="button"
                     className="cb arc-btn ho-vi"
-                    onClick={handleArchive}
+                    onClick={handleArcUnarc}
+                    title={`${archive ? 'Unarchive Note' : 'Archive Note'}`}
                 >
-                    <RiInboxArchiveLine className="arc-icon" />
+                    {!archive ? (
+                        <RiInboxArchiveLine className="arc-icon" />
+                    ) : (
+                        <RiInboxUnarchiveLine className="arc-icon" />
+                    )}
                 </button>
                 <button
                     type="button"
                     className="cb arc-btn ho-vi"
                     onClick={handleDelete}
+                    title="Delete Note"
                 >
                     <IoMdTrash className="arc-icon" />
                 </button>

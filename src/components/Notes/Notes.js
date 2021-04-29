@@ -2,7 +2,11 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 
-import { addNote, deleteNote } from '../../redux/actions/notesActions';
+import {
+    addNote,
+    archiveNote,
+    deleteNote,
+} from '../../redux/actions/notesActions';
 import AddNote from '../AddNote/AddNote';
 import NotesView from '../NotesView/NotesView';
 
@@ -11,6 +15,7 @@ const Notes = (props) => {
         ns: { notes, pinned },
         addNote,
         deleteNote,
+        archiveNote,
     } = props;
 
     return (
@@ -31,6 +36,7 @@ const mapDispatchToProsp = (dispatch) => {
     return {
         addNote: (data, pin, archive) => dispatch(addNote(data, pin, archive)),
         deleteNote: (id, type) => dispatch(deleteNote(id, type)),
+        archiveNote: (id, type) => dispatch(archiveNote(id, type)),
     };
 };
 

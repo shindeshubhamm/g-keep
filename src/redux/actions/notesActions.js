@@ -72,12 +72,28 @@ export const addNote = (note, pin, archive) => (dispatch) => {
 // DELETE NOTE
 export const deleteNote = (id, type) => {
     ls.remove(id);
-    const ids = ls.get(type ?? 'notes');
+    const ids = ls.get(type);
     const newIds = ids.filter((i) => i !== id);
-    ls.set(type ?? 'notes', newIds);
+    ls.set(type, newIds);
 
     return {
         type: DELETE_NOTE,
-        payload: { id, type: type ?? 'notes' },
+        payload: { id, type },
+    };
+};
+
+// ARCHIVE NOTE
+export const archiveNote = (id, type) => {
+    const ids = ls.get(type);
+    const newIds = ids.filter((id) => ids !== id);
+    const arcIds = ls.get('archive');
+    ls.set(type, newIds);
+
+    const newArcIds = arcIds && _.isArray(arcIds) ? [...arcIds, id] : [id];
+    ls.set('archive', newArcIds);
+
+    return {
+        type: ARCHIVE_NOTE,
+        payload: { id, type },
     };
 };
