@@ -16,7 +16,14 @@ const getTitle = (key) => {
 };
 
 const Navbar = (props) => {
-    const { handleSidebar, selected, searchNotes, switchTheme, theme } = props;
+    const {
+        handleSidebar,
+        selected,
+        searchNotes,
+        switchTheme,
+        theme,
+        clearSearch,
+    } = props;
 
     return (
         <div className="navbar">
@@ -29,7 +36,7 @@ const Navbar = (props) => {
                 <h1 className="text">{getTitle(selected)}</h1>
             </div>
             {/* </div> */}
-            <Searchbar searchNotes={searchNotes} />
+            <Searchbar searchNotes={searchNotes} clearSearch={clearSearch} />
             <div className="theme-switch-wrapper">
                 <label className="theme-switch" htmlFor="checkbox">
                     <input

@@ -7,6 +7,7 @@ import {
     ADD_PINNED_NOTE,
     ARCHIVE_NOTE,
     BLANK_NOTE,
+    CLEAR_SEARCH,
     DELETE_NOTE,
     LOAD_NOTES,
     PIN_NOTE,
@@ -16,10 +17,23 @@ import {
 } from '../types';
 import { setAlert } from './appActions';
 
-export const searchNotes = (data) => {
+export const searchNotes = (text) => {
+    if (!text.trim()) {
+        return {
+            type: CLEAR_SEARCH,
+        };
+    }
+    ls.set('search', text);
     return {
         type: SEARCH_NOTES,
-        payload: data,
+        payload: { text },
+    };
+};
+
+export const clearSearch = () => {
+    ls.remove('search');
+    return {
+        type: CLEAR_SEARCH,
     };
 };
 
@@ -37,15 +51,16 @@ const fetchNotes = (ids) => {
     return notes;
 };
 
-export const loadNotes = () => {
+export const loadNotes = () => (dispatch) => {
     const notes = fetchNotes(ls.get('notes'));
     const archive = fetchNotes(ls.get('archive'));
     const pinned = fetchNotes(ls.get('pinned'));
 
-    return {
+    dispatch({
         type: LOAD_NOTES,
         payload: { notes, archive, pinned },
-    };
+    });
+    dispatch(searchNotes(ls.get('search') || ''));
 };
 
 const modifyNotesDB = (id, type) => {

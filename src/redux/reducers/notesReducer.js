@@ -6,6 +6,7 @@ import {
     ADD_PINNED_NOTE,
     ARCHIVE_NOTE,
     BLANK_NOTE,
+    CLEAR_SEARCH,
     DELETE_NOTE,
     LOAD_NOTES,
     PIN_NOTE,
@@ -18,9 +19,20 @@ const initialState = {
     notes: [],
     archive: [],
     pinned: [],
+    searchN: [],
+    searchA: [],
+    searchP: [],
 };
 
-let temp;
+const getNotes = (list, text) => {
+    if (!text || !text.trim()) return [];
+    return list.filter(
+        (n) =>
+            // eslint-disable-next-line
+            n.title?.toLowerCase()?.includes(text.toLowerCase()) ||
+            n.desc?.toLowerCase()?.includes(text.toLowerCase()),
+    );
+};
 
 const layoutReducer = (state = initialState, action) => {
     const { type, payload } = action;
@@ -106,6 +118,28 @@ const layoutReducer = (state = initialState, action) => {
                     ...state.notes,
                     { ...ls.get(payload.id), id: payload.id },
                 ],
+            };
+
+        case SEARCH_NOTES:
+            return {
+                ...state,
+                searchN: state.notes?.length
+                    ? getNotes(state.notes, payload.text)
+                    : [],
+                searchA: state.archive?.length
+                    ? getNotes(state.archive, payload.text)
+                    : [],
+                searchP: state.pinned?.length
+                    ? getNotes(state.pinned, payload.text)
+                    : [],
+            };
+
+        case CLEAR_SEARCH:
+            return {
+                ...state,
+                searchN: [],
+                searchA: [],
+                searchP: [],
             };
 
         default:

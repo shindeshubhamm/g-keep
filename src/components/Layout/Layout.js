@@ -4,12 +4,19 @@ import ls from 'local-storage';
 import { connect } from 'react-redux';
 
 import { selectMenu, switchTheme } from '../../redux/actions/appActions';
-import { searchNotes } from '../../redux/actions/notesActions';
+import { clearSearch, searchNotes } from '../../redux/actions/notesActions';
 import Navbar from './Navbar';
 import Sidebar from './Sidebar';
 
 const Layout = (props) => {
-    const { children, app, selectMenu, searchNotes, switchTheme } = props;
+    const {
+        children,
+        app,
+        selectMenu,
+        searchNotes,
+        switchTheme,
+        clearSearch,
+    } = props;
     const { selected, theme } = app;
     let sidebarState = ls.get('sidebar');
     if (window.innerWidth <= 800) {
@@ -29,6 +36,7 @@ const Layout = (props) => {
                 selected={selected}
                 handleSidebar={toggleSidebar}
                 searchNotes={searchNotes}
+                clearSearch={clearSearch}
                 switchTheme={switchTheme}
                 theme={theme}
             />
@@ -54,6 +62,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         selectMenu: (index) => dispatch(selectMenu(index)),
         searchNotes: (text) => dispatch(searchNotes(text)),
+        clearSearch: () => dispatch(clearSearch()),
         switchTheme: () => dispatch(switchTheme()),
     };
 };

@@ -1,15 +1,20 @@
 import React, { useState } from 'react';
 
+import ls from 'local-storage';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { CgMathPlus } from 'react-icons/cg';
 
 const Searchbar = (props) => {
-    const { searchNotes } = props;
-    const [search, setSearch] = useState('');
+    const { searchNotes, clearSearch } = props;
+    const [search, setSearch] = useState(ls.get('search') || '');
 
     const handleSearch = (data) => {
         setSearch(data);
-        searchNotes(props);
+        if (!data || !data.trim()) {
+            clearSearch();
+            return;
+        }
+        searchNotes(data);
     };
 
     return (

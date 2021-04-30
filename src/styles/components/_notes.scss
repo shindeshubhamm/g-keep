@@ -7,6 +7,17 @@
         margin: 40px 0 10px 28px;
     }
 
+    .searchrs {
+        h1 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        h2 {
+            font-size: 16px;
+            font-weight: 500;
+        }
+    }
+
     @include scMax(960) {
         margin: 30px 50px;
     }
