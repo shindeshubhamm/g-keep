@@ -24,6 +24,7 @@ const NotesView = (props) => {
         unarchiveNote,
         pinNote,
         unpinNote,
+        fromSearch,
     } = props;
 
     const [modal, setModal] = useState(false);
@@ -72,6 +73,7 @@ const NotesView = (props) => {
                         pinNote={pinNote}
                         unpinNote={unpinNote}
                         onNoteClick={handleNoteClick}
+                        fromSearch={fromSearch}
                     />
                 ))}
         </div>
@@ -80,11 +82,15 @@ const NotesView = (props) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        deleteNote: (id, type) => dispatch(deleteNote(id, type)),
-        archiveNote: (id, type) => dispatch(archiveNote(id, type)),
-        unarchiveNote: (id) => dispatch(unarchiveNote(id)),
-        pinNote: (id, type) => dispatch(pinNote(id, type)),
-        unpinNote: (id) => dispatch(unpinNote(id)),
+        deleteNote: (id, type, sResults) => {
+            dispatch(deleteNote(id, type, sResults));
+        },
+        archiveNote: (id, type, sResults) => {
+            dispatch(archiveNote(id, type, sResults));
+        },
+        unarchiveNote: (id, sResults) => dispatch(unarchiveNote(id, sResults)),
+        pinNote: (id, type, sResults) => dispatch(pinNote(id, type, sResults)),
+        unpinNote: (id, sResults) => dispatch(unpinNote(id, sResults)),
     };
 };
 

@@ -5,14 +5,19 @@ import {
     ADD_ARCHIVE_NOTE,
     ADD_NOTE,
     ADD_PINNED_NOTE,
+    ARCHIVE_FROM_SEARCH,
     ARCHIVE_NOTE,
     BLANK_NOTE,
     CLEAR_SEARCH,
+    DELETE_FROM_SEARCH,
     DELETE_NOTE,
     LOAD_NOTES,
+    PIN_FROM_SEARCH,
     PIN_NOTE,
     SEARCH_NOTES,
+    UNARCHIVE_FROM_SEARCH,
     UNARCHIVE_NOTE,
+    UNPIN_FROM_SEARCH,
     UNPIN_NOTE,
 } from '../types';
 import { setAlert } from './appActions';
@@ -89,7 +94,7 @@ export const addNote = (note, pin, archive) => (dispatch) => {
 };
 
 // DELETE NOTE
-export const deleteNote = (id, type) => (dispatch) => {
+export const deleteNote = (id, type, fromSearch) => (dispatch) => {
     ls.remove(id);
     const ids = ls.get(type);
     const newIds = ids.filter((i) => i !== id);
@@ -99,11 +104,17 @@ export const deleteNote = (id, type) => (dispatch) => {
         type: DELETE_NOTE,
         payload: { id, type },
     });
+    if (fromSearch) {
+        dispatch({
+            type: DELETE_FROM_SEARCH,
+            payload: { id, type },
+        });
+    }
     dispatch(setAlert('Note Deleted'));
 };
 
 // ARCHIVE NOTE
-export const archiveNote = (id, type) => (dispatch) => {
+export const archiveNote = (id, type, fromSearch) => (dispatch) => {
     const ids = ls.get(type);
     const newIds = ids.filter((i) => i !== id);
     const arcIds = ls.get('archive');
@@ -116,10 +127,16 @@ export const archiveNote = (id, type) => (dispatch) => {
         type: ARCHIVE_NOTE,
         payload: { id, type },
     });
+    if (fromSearch) {
+        dispatch({
+            type: ARCHIVE_FROM_SEARCH,
+            payload: { id, type },
+        });
+    }
     dispatch(setAlert('Note Archived'));
 };
 
-export const unarchiveNote = (id) => (dispatch) => {
+export const unarchiveNote = (id, fromSearch) => (dispatch) => {
     const ids = ls.get('archive');
     const newIds = ids.filter((i) => i !== id);
     ls.set('archive', newIds);
@@ -132,11 +149,17 @@ export const unarchiveNote = (id) => (dispatch) => {
         type: UNARCHIVE_NOTE,
         payload: { id },
     });
+    if (fromSearch) {
+        dispatch({
+            type: UNARCHIVE_FROM_SEARCH,
+            payload: { id },
+        });
+    }
     dispatch(setAlert('Note Unarchived'));
 };
 
 // PIN NOTE
-export const pinNote = (id, type) => {
+export const pinNote = (id, type, fromSearch) => (dispatch) => {
     const ids = ls.get(type);
     const newIds = ids.filter((i) => i !== id);
     const pinIds = ls.get('pinned');
@@ -145,13 +168,19 @@ export const pinNote = (id, type) => {
     const newPinIds = pinIds && _.isArray(pinIds) ? [...pinIds, id] : [id];
     ls.set('pinned', newPinIds);
 
-    return {
+    dispatch({
         type: PIN_NOTE,
         payload: { id, type },
-    };
+    });
+    if (fromSearch) {
+        dispatch({
+            type: PIN_FROM_SEARCH,
+            payload: { id, type },
+        });
+    }
 };
 
-export const unpinNote = (id, type) => {
+export const unpinNote = (id, fromSearch) => (dispatch) => {
     const ids = ls.get('pinned');
     const newIds = ids.filter((i) => i !== id);
     ls.set('pinned', newIds);
@@ -160,8 +189,14 @@ export const unpinNote = (id, type) => {
     const newNotIds = notIds && _.isArray(notIds) ? [...notIds, id] : [id];
     ls.set('notes', newNotIds);
 
-    return {
+    dispatch({
         type: UNPIN_NOTE,
         payload: { id },
-    };
+    });
+    if (fromSearch) {
+        dispatch({
+            type: UNPIN_FROM_SEARCH,
+            payload: { id },
+        });
+    }
 };

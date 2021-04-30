@@ -4,14 +4,19 @@ import {
     ADD_ARCHIVE_NOTE,
     ADD_NOTE,
     ADD_PINNED_NOTE,
+    ARCHIVE_FROM_SEARCH,
     ARCHIVE_NOTE,
     BLANK_NOTE,
     CLEAR_SEARCH,
+    DELETE_FROM_SEARCH,
     DELETE_NOTE,
     LOAD_NOTES,
+    PIN_FROM_SEARCH,
     PIN_NOTE,
     SEARCH_NOTES,
+    UNARCHIVE_FROM_SEARCH,
     UNARCHIVE_NOTE,
+    UNPIN_FROM_SEARCH,
     UNPIN_NOTE,
 } from '../types';
 
@@ -33,6 +38,8 @@ const getNotes = (list, text) => {
             n.desc?.toLowerCase()?.includes(text.toLowerCase()),
     );
 };
+
+let temp;
 
 const layoutReducer = (state = initialState, action) => {
     const { type, payload } = action;
@@ -76,6 +83,18 @@ const layoutReducer = (state = initialState, action) => {
             }
             return { ...state };
 
+        case DELETE_FROM_SEARCH:
+            if (['notes', 'archive', 'pinned'].includes(payload.type)) {
+                temp = `search${payload.type.charAt(0).toUpperCase()}`;
+                return {
+                    ...state,
+                    [temp]: state[temp].filter(
+                        (note) => note.id !== payload.id,
+                    ),
+                };
+            }
+            return { ...state };
+
         case ARCHIVE_NOTE:
             return {
                 ...state,
@@ -88,12 +107,33 @@ const layoutReducer = (state = initialState, action) => {
                 ),
             };
 
+        case ARCHIVE_FROM_SEARCH:
+            temp = `search${payload.type.charAt(0).toUpperCase()}`;
+            return {
+                ...state,
+                searchA: [
+                    ...state.searchA,
+                    { ...ls.get(payload.id), id: payload.id },
+                ],
+                [temp]: state[temp].filter((note) => note.id !== payload.id),
+            };
+
         case UNARCHIVE_NOTE:
             return {
                 ...state,
                 archive: state.archive.filter((n) => n.id !== payload.id),
                 notes: [
                     ...state.notes,
+                    { ...ls.get(payload.id), id: payload.id },
+                ],
+            };
+
+        case UNARCHIVE_FROM_SEARCH:
+            return {
+                ...state,
+                searchA: state.searchA.filter((n) => n.id !== payload.id),
+                searchN: [
+                    ...state.searchN,
                     { ...ls.get(payload.id), id: payload.id },
                 ],
             };
@@ -110,12 +150,33 @@ const layoutReducer = (state = initialState, action) => {
                 ),
             };
 
+        case PIN_FROM_SEARCH:
+            temp = `search${payload.type.charAt(0).toUpperCase()}`;
+            return {
+                ...state,
+                searchP: [
+                    ...state.searchP,
+                    { ...ls.get(payload.id), id: payload.id },
+                ],
+                [temp]: state[temp].filter((n) => n.id !== payload.id),
+            };
+
         case UNPIN_NOTE:
             return {
                 ...state,
                 pinned: state.pinned.filter((n) => n.id !== payload.id),
                 notes: [
                     ...state.notes,
+                    { ...ls.get(payload.id), id: payload.id },
+                ],
+            };
+
+        case UNPIN_FROM_SEARCH:
+            return {
+                ...state,
+                searchP: state.searchP.filter((n) => n.id !== payload.id),
+                searchN: [
+                    ...state.searchN,
                     { ...ls.get(payload.id), id: payload.id },
                 ],
             };

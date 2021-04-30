@@ -17,27 +17,28 @@ const Note = (props) => {
         pinNote,
         unpinNote,
         onNoteClick,
+        fromSearch,
     } = props;
     const type = pinned ? 'pinned' : archive ? 'archive' : 'notes';
 
     const handleDelete = () => {
-        deleteNote(id, type);
+        deleteNote(id, type, fromSearch);
     };
 
     const handleArcUnarc = () => {
         if (archive) {
-            unarchiveNote(id);
+            unarchiveNote(id, fromSearch);
             return;
         }
-        archiveNote(id, type);
+        archiveNote(id, type, fromSearch);
     };
 
     const handlePinUnpin = () => {
         if (pinned) {
-            unpinNote(id);
+            unpinNote(id, fromSearch);
             return;
         }
-        pinNote(id, type);
+        pinNote(id, type, fromSearch);
     };
 
     const handleCardClick = (e) => {

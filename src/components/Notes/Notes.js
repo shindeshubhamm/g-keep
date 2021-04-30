@@ -49,19 +49,19 @@ const Notes = (props) => {
                     {searchP.length !== 0 && (
                         <div className="result">
                             <p className="sub-title">PINNED</p>
-                            <NotesView cards={searchP} pinned />
+                            <NotesView cards={searchP} pinned fromSearch />
                         </div>
                     )}
                     {searchN.length !== 0 && (
                         <div className="result">
                             <p className="sub-title">NOTES</p>
-                            <NotesView cards={searchN} />
+                            <NotesView cards={searchN} fromSearch />
                         </div>
                     )}
                     {searchA.length !== 0 && (
                         <div className="result">
                             <p className="sub-title">ARCHIVED</p>
-                            <NotesView cards={searchA} archive />
+                            <NotesView cards={searchA} archive fromSearch />
                         </div>
                     )}
                 </div>
