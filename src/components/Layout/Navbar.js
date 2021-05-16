@@ -1,6 +1,8 @@
 import React from 'react';
 
+import ls from 'local-storage';
 import { FiMenu } from 'react-icons/fi';
+import { useHistory } from 'react-router-dom';
 
 import Searchbar from './Searchbar';
 
@@ -25,6 +27,15 @@ const Navbar = (props) => {
         clearSearch,
     } = props;
 
+    const userData = ls.get('user');
+
+    const history = useHistory();
+
+    const handleLogout = () => {
+        ls.remove('user');
+        history.push('/login');
+    };
+
     return (
         <div className="navbar">
             {/* <div className="navbar-logo"> */}
@@ -47,6 +58,20 @@ const Navbar = (props) => {
                     />
                     <div className="slider round" />
                 </label>
+            </div>
+            <div>
+                <button
+                    type="button"
+                    title="Logout"
+                    style={{ display: 'contents' }}
+                    onClick={handleLogout}
+                >
+                    <img
+                        src={userData.imageUrl}
+                        alt=""
+                        className="loggedin-user"
+                    />
+                </button>
             </div>
         </div>
     );

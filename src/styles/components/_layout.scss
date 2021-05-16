@@ -236,3 +236,16 @@ input:checked + .slider:before {
 .slider.round:before {
     border-radius: 50%;
 }
+
+// logged in user
+.loggedin-user {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 6px solid #ffffff;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+    &:hover {
+        border-color: #f0f0f0;
+    }
+}

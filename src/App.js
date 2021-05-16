@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 
 import AppRouter from './AppRouter';
 import Alert from './components/Alert/Alert';
-import Layout from './components/Layout/Layout';
 import { loadNotes } from './redux/actions/notesActions';
 import './styles/global.scss';
 
@@ -17,9 +16,9 @@ const App = (props) => {
 
     return (
         <div className={`app ${app.theme === 'dark' ? 'darkapp' : 'lightapp'}`}>
-            <Layout>
-                <AppRouter />
-            </Layout>
+            {/* <Layout> */}
+            <AppRouter />
+            {/* </Layout> */}
             <Alert open={!!app.alert} message={app.alert} />
         </div>
     );
